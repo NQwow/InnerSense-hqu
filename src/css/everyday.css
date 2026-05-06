@@ -1,0 +1,164 @@
+/* 每日一句页面样式 */
+.navbar {
+    display: flex;
+    align-items: center;
+    padding: 20px 40px;
+    background-color: var(--navbar-bg);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 10px var(--card-shadow);
+}
+
+.back-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: none;
+    border: 2px solid var(--accent-pink);
+    border-radius: 25px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    color: var(--text-primary);
+    transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+    background-color: var(--accent-pink);
+    color: white;
+    transform: translateX(-3px);
+}
+
+.back-btn svg {
+    fill: currentColor;
+}
+
+.page-title {
+    flex: 1;
+    text-align: center;
+    font-size: 26px;
+    color: var(--accent-pink);
+    margin-right: 120px;
+    font-weight: 600;
+}
+
+.note-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 80px);
+    padding: 40px 20px;
+}
+
+.note-card {
+    background: linear-gradient(to bottom right, #FFF9E6 0%, #FFF5E6 100%);
+    border-radius: 8px;
+    padding: 60px 50px;
+    max-width: 650px;
+    width: 100%;
+    box-shadow: 
+        0 2px 4px rgba(0, 0, 0, 0.1),
+        0 8px 16px rgba(0, 0, 0, 0.1),
+        inset 0 0 60px rgba(255, 228, 181, 0.3);
+    position: relative;
+    min-height: 450px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid #FFE4B5;
+}
+
+[data-theme="dark"] .note-card {
+    background: linear-gradient(to bottom right, #3D3450 0%, #2D2438 100%);
+    border-color: #4A3F5C;
+    box-shadow: 
+        0 2px 4px rgba(0, 0, 0, 0.3),
+        0 8px 16px rgba(0, 0, 0, 0.4),
+        inset 0 0 60px rgba(74, 63, 92, 0.3);
+}
+
+/* 便签顶部装饰线 */
+.note-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(to right, #FFB6C1, #FFA07A, #87CEEB, #98D8C8);
+    border-radius: 8px 8px 0 0;
+}
+
+.note-date {
+    font-size: 16px;
+    color: #FF8C69;
+    font-weight: 600;
+    margin-bottom: 30px;
+    text-align: left;
+    padding-bottom: 15px;
+    border-bottom: 2px dashed #FFE4B5;
+}
+
+[data-theme="dark"] .note-date {
+    color: #FFB6C1;
+    border-bottom-color: #4A3F5C;
+}
+
+.note-content {
+    font-size: 22px;
+    line-height: 2;
+    color: #5A4A3A;
+    text-align: left;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    font-family: 'KaiTi', 'STKaiti', '楷体', serif;
+}
+
+[data-theme="dark"] .note-content {
+    color: #F5E6D3;
+}
+
+.note-decoration {
+    text-align: right;
+    margin-top: 30px;
+}
+
+.heart-deco {
+    fill: #FF6B9D;
+    opacity: 0.5;
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        padding: 15px 20px;
+    }
+    
+    .page-title {
+        font-size: 22px;
+        margin-right: 100px;
+    }
+    
+    .note-card {
+        padding: 45px 35px;
+        min-height: 400px;
+    }
+    
+    .note-content {
+        font-size: 20px;
+        line-height: 1.8;
+    }
+}
+
+@media (max-width: 480px) {
+    .note-card {
+        padding: 35px 25px;
+    }
+    
+    .note-content {
+        font-size: 18px;
+    }
+    
+    .note-date {
+        font-size: 14px;
+    }
+}

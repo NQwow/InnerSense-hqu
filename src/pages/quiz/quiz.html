@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>趣味小测试 - 知心</title>
+    <link rel="stylesheet" href="../../css/theme.css">
+    <link rel="stylesheet" href="../../css/quiz.css">
+</head>
+<body>
+    <div id="app">
+        <!-- 顶部导航栏 -->
+        <header class="navbar">
+            <button class="back-btn" onclick="goBack()">
+                <svg viewBox="0 0 24 24" width="24" height="24">
+                    <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+                </svg>
+                返回首页
+            </button>
+            <h1 class="page-title">趣味小测试</h1>
+        </header>
+
+        <!-- 测试内容区域 -->
+        <main class="quiz-container">
+            <div class="quiz-placeholder">
+                <svg class="placeholder-icon" viewBox="0 0 24 24" width="80" height="80">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                </svg>
+                <h2>趣味小测试</h2>
+                <p>功能开发中，敬请期待...</p>
+                <p class="sub-text">这里将提供有趣的心理性格测试</p>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
+    <script src="../../js/theme.js"></script>
+    <script src="../../js/clickEffect.js"></script>
+    <script src="../../js/quiz.js"></script>
+</body>
+</html>

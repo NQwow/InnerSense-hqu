@@ -1,0 +1,301 @@
+/* 情绪工具箱页面样式 */
+.navbar {
+    display: flex;
+    align-items: center;
+    padding: 20px 40px;
+    background-color: var(--navbar-bg);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 10px var(--card-shadow);
+}
+
+.back-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: none;
+    border: 2px solid var(--accent-pink);
+    border-radius: 25px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    color: var(--text-primary);
+    transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+    background-color: var(--accent-pink);
+    color: white;
+    transform: translateX(-3px);
+}
+
+.back-btn svg {
+    fill: currentColor;
+}
+
+.page-title {
+    flex: 1;
+    text-align: center;
+    font-size: 26px;
+    color: var(--accent-pink);
+    margin-right: 120px;
+    font-weight: 600;
+}
+
+.toolbox-container {
+    padding: 50px 30px;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+.tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 35px;
+    padding: 20px 0;
+}
+
+.tool-card {
+    background-color: var(--bg-secondary);
+    border-radius: 24px;
+    padding: 50px 35px;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 0 10px 25px var(--card-shadow);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+    border: 4px solid transparent;
+}
+
+.tool-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 0;
+}
+
+.tool-card:hover {
+    transform: translateY(-12px) scale(1.03);
+    box-shadow: 0 15px 35px var(--card-shadow);
+}
+
+.tool-card:hover::before {
+    opacity: 0.15;
+}
+
+.tool-icon {
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+}
+
+.tool-icon svg {
+    width: 70px;
+    height: 70px;
+    fill: white;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+    transition: transform 0.3s ease;
+}
+
+.tool-card:hover .tool-icon svg {
+    transform: scale(1.15) rotate(5deg);
+}
+
+.tool-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-primary);
+    position: relative;
+    z-index: 1;
+}
+
+/* 各卡片颜色和渐变背景 */
+.tool-breathing {
+    background: linear-gradient(135deg, #FF6B9D 0%, #FF8EAE 100%);
+    border-color: #FF6B9D;
+}
+.tool-breathing .tool-title {
+    color: white;
+}
+
+.tool-meditation {
+    background: linear-gradient(135deg, #87CEEB 0%, #A8D8EA 100%);
+    border-color: #87CEEB;
+}
+.tool-meditation .tool-title {
+    color: white;
+}
+
+.tool-exercise {
+    background: linear-gradient(135deg, #98D8C8 0%, #B8E6D5 100%);
+    border-color: #98D8C8;
+}
+.tool-exercise .tool-title {
+    color: white;
+}
+
+.tool-art {
+    background: linear-gradient(135deg, #FFD9A0 0%, #FFE4B5 100%);
+    border-color: #FFD9A0;
+}
+.tool-art .tool-title {
+    color: white;
+}
+
+.tool-music {
+    background: linear-gradient(135deg, #DDA0DD 0%, #E6B8E6 100%);
+    border-color: #DDA0DD;
+}
+.tool-music .tool-title {
+    color: white;
+}
+
+.tool-talk {
+    background: linear-gradient(135deg, #F0E68C 0%, #F5F0A0 100%);
+    border-color: #F0E68C;
+}
+.tool-talk .tool-title {
+    color: white;
+}
+
+/* 弹窗样式 */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    animation: fadeIn 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal-content {
+    background-color: var(--bg-secondary);
+    margin: 5% auto;
+    padding: 45px;
+    border-radius: 24px;
+    max-width: 750px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4);
+    animation: slideIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 3px solid var(--accent-pink);
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-50px) scale(0.9);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
+.close-btn {
+    position: absolute;
+    right: 25px;
+    top: 20px;
+    font-size: 36px;
+    font-weight: bold;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.close-btn:hover {
+    color: var(--accent-pink);
+    background-color: rgba(255, 182, 193, 0.2);
+    transform: rotate(90deg);
+}
+
+.modal-content h2 {
+    font-size: 30px;
+    color: var(--accent-pink);
+    margin-bottom: 25px;
+    padding-right: 50px;
+    font-weight: 700;
+}
+
+#modalBody {
+    font-size: 17px;
+    line-height: 1.9;
+    color: var(--text-primary);
+}
+
+#modalBody p {
+    margin-bottom: 18px;
+}
+
+#modalBody strong {
+    color: var(--accent-pink);
+    font-size: 18px;
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        padding: 15px 20px;
+    }
+    
+    .page-title {
+        font-size: 22px;
+        margin-right: 100px;
+    }
+    
+    .toolbox-container {
+        padding: 30px 20px;
+    }
+    
+    .tools-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+    
+    .tool-card {
+        padding: 40px 30px;
+    }
+    
+    .modal-content {
+        margin: 10% auto;
+        padding: 35px 25px;
+    }
+    
+    .modal-content h2 {
+        font-size: 26px;
+    }
+}
+
+@media (max-width: 480px) {
+    .tool-card {
+        padding: 35px 25px;
+    }
+    
+    .tool-title {
+        font-size: 22px;
+    }
+}

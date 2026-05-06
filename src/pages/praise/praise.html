@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>夸夸卡 - 知心</title>
+    <link rel="stylesheet" href="../../css/theme.css">
+    <link rel="stylesheet" href="../../css/praise.css">
+</head>
+<body>
+    <div id="app">
+        <!-- 顶部导航栏 -->
+        <header class="navbar">
+            <button class="back-btn" onclick="goBack()">
+                <svg viewBox="0 0 24 24" width="24" height="24">
+                    <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+                </svg>
+                返回首页
+            </button>
+            <h1 class="page-title">夸夸卡</h1>
+        </header>
+
+        <!-- 夸夸卡内容 -->
+        <main class="praise-container">
+            <div class="praise-card">
+                <!-- 装饰元素 -->
+                <div class="decoration decoration-cloud cloud-1">
+                    <svg viewBox="0 0 24 24" width="40" height="40">
+                        <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/>
+                    </svg>
+                </div>
+                <div class="decoration decoration-star star-1">
+                    <svg viewBox="0 0 24 24" width="30" height="30">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                </div>
+                <div class="decoration decoration-star star-2">
+                    <svg viewBox="0 0 24 24" width="25" height="25">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                </div>
+                
+                <!-- 主要内容 -->
+                <div class="praise-content" id="praiseContent"></div>
+                
+                <!-- 按钮组 -->
+                <div class="button-group">
+                    <button class="refresh-btn" onclick="refreshPraise()">
+                        <svg viewBox="0 0 24 24" width="20" height="20">
+                            <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
+                        </svg>
+                        换一句
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
+    <script src="../../js/theme.js"></script>
+    <script src="../../js/clickEffect.js"></script>
+    <script src="../../js/praise.js"></script>
+</body>
+</html>
