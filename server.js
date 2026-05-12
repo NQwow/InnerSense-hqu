@@ -1,9 +1,10 @@
 const express = require('express');
 const path = require('path');
-const fs = require('fs');
 
 const app = express();
 const PORT = process.env.PORT || 8080;
+
+console.log(`Starting server on port ${PORT}`);
 
 // Log all incoming requests
 app.use((req, res, next) => {
@@ -11,40 +12,18 @@ app.use((req, res, next) => {
   next();
 });
 
-// Health check endpoint for monitoring
-app.get('/health', (req, res) => {
-  res.status(200).json({ status: 'ok', timestamp: new Date().toISOString() });
-});
-
 // Serve static files (HTML, CSS, JS, images) from the root directory
-app.use(express.static(path.join(__dirname), { index: 'index.html' }));
+app.use(express.static(path.join(__dirname)));
 
-// SPA fallback — for any route that doesn't match a real file, serve index.html
+// Catch-all route — serve index.html for any unmatched path (SPA support)
 app.get('*', (req, res) => {
-  const filePath = path.join(__dirname, req.path);
-
-  fs.access(filePath, fs.constants.F_OK, (err) => {
-    if (!err) {
-      // File exists — let express.static handle it (shouldn't normally reach here)
-      res.sendFile(filePath);
-    } else {
-      // No matching file — serve index.html for SPA client-side routing
-      const indexPath = path.join(__dirname, 'index.html');
-      fs.access(indexPath, fs.constants.F_OK, (indexErr) => {
-        if (indexErr) {
-          console.error('index.html not found');
-          res.status(404).send('Not Found');
-        } else {
-          res.sendFile(indexPath);
-        }
-      });
-    }
-  });
+  console.log(`Catch-all: serving index.html for ${req.url}`);
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-// Global error handler — prevents unhandled errors from crashing the server
+// Global error handler
 app.use((err, req, res, next) => {
-  console.error(`[${new Date().toISOString()}] ERROR ${req.method} ${req.url}:`, err.message);
+  console.error(`ERROR ${req.method} ${req.url}:`, err.message);
   res.status(500).send('Internal Server Error');
 });
 
