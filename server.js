@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const fs = require('fs');
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -18,7 +19,15 @@ app.use(express.static(path.join(__dirname)));
 // Catch-all route — serve index.html for any unmatched path (SPA support)
 app.get('*', (req, res) => {
   console.log(`Catch-all: serving index.html for ${req.url}`);
-  res.sendFile(path.join(__dirname, 'index.html'));
+  const indexPath = path.join(__dirname, 'index.html');
+  fs.readFile(indexPath, 'utf8', (err, data) => {
+    if (err) {
+      console.error(`Error reading index.html:`, err.message);
+      return res.status(500).send('Internal Server Error');
+    }
+    res.setHeader('Content-Type', 'text/html');
+    res.send(data);
+  });
 });
 
 // Global error handler
