@@ -1,0 +1,12 @@
+{
+  "name": "innersense",
+  "version": "1.0.0",
+  "description": "知心 - A warm mental health static web app",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
