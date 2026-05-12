@@ -39,6 +39,8 @@
     color: var(--accent-pink);
     margin-right: 120px;
     font-weight: 600;
+    line-height: 1.2;
+    height: 31px;
 }
 
 .toolbox-container {
@@ -164,6 +166,21 @@
 }
 .tool-talk .tool-title {
     color: white;
+}
+
+/* 深色模式适配 - 调整卡片使其更柔和 */
+[data-theme="dark"] .tool-card {
+    opacity: 0.85;
+    box-shadow: 
+        0 10px 25px rgba(0, 0, 0, 0.4),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .tool-card:hover {
+    opacity: 1;
+    box-shadow: 
+        0 15px 35px rgba(0, 0, 0, 0.5),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.2);
 }
 
 /* 弹窗样式 */
@@ -297,5 +314,97 @@
     
     .tool-title {
         font-size: 22px;
+    }
+}
+
+/* 底部导航栏 */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--navbar-bg);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 -2px 15px var(--card-shadow);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 0;
+    z-index: 100;
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    color: var(--text-secondary);
+    padding: 8px 15px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    min-width: 60px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.nav-item svg {
+    fill: currentColor;
+    transition: all 0.3s ease;
+}
+
+.nav-item span {
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.nav-item:hover {
+    color: var(--accent-pink);
+    background-color: rgba(255, 182, 193, 0.1);
+    transform: translateY(-3px);
+}
+
+.nav-item.active {
+    color: var(--accent-pink);
+    background-color: rgba(255, 182, 193, 0.15);
+}
+
+/* 调整主内容区域，为底部导航留出空间 */
+.toolbox-container {
+    padding-bottom: 100px;
+}
+
+@media (max-width: 768px) {
+    .bottom-nav {
+        padding: 8px 0;
+    }
+    
+    .nav-item {
+        padding: 6px 10px;
+        min-width: 50px;
+    }
+    
+    .nav-item svg {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .nav-item span {
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-item {
+        padding: 5px 8px;
+        min-width: 45px;
+    }
+    
+    .nav-item svg {
+        width: 18px;
+        height: 18px;
+    }
+    
+    .nav-item span {
+        font-size: 10px;
     }
 }

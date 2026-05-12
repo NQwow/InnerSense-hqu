@@ -12,11 +12,58 @@
     z-index: 100;
 }
 
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
 .logo {
     font-size: 32px;
     font-weight: bold;
     color: var(--accent-pink);
     letter-spacing: 3px;
+    margin: 0;
+}
+
+.subtitle {
+    font-size: 14px;
+    color: var(--text-secondary);
+    opacity: 0.7;
+    white-space: nowrap;
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.mood-btn {
+    background: none;
+    border: 2px solid var(--accent-pink);
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.mood-btn:hover {
+    transform: scale(1.1) rotate(15deg);
+    background-color: var(--accent-pink);
+}
+
+.mood-btn svg {
+    fill: var(--text-primary);
+    transition: fill 0.3s ease;
+}
+
+.mood-btn:hover svg {
+    fill: white;
 }
 
 .theme-btn {
@@ -48,10 +95,10 @@
 
 /* 主内容区域 */
 .main-content {
-    padding: 60px 40px;
+    padding: 60px 40px 100px 40px;
     max-width: 1400px;
     margin: 0 auto;
-    min-height: calc(100vh - 100px);
+    min-height: calc(100vh - 180px);
 }
 
 .cards-container {
@@ -161,18 +208,177 @@
     fill: #98D8C8;
 }
 
+/* 心情颜色日历 */
+.mood-calendar-section {
+    margin-bottom: 40px;
+    background: linear-gradient(135deg, rgba(255, 182, 193, 0.1) 0%, rgba(135, 206, 235, 0.1) 100%);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="dark"] .mood-calendar-section {
+    background: linear-gradient(135deg, rgba(74, 63, 92, 0.3) 0%, rgba(45, 58, 74, 0.3) 100%);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.calendar-header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.section-title {
+    font-size: 1.8rem;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.section-title svg {
+    fill: var(--accent-pink);
+}
+
+.calendar-subtitle {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    margin: 0;
+    opacity: 0.8;
+}
+
+.mood-calendar {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(30px, 1fr));
+    gap: 6px;
+    margin-bottom: 1.5rem;
+}
+
+.calendar-day-cell {
+    aspect-ratio: 1;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.calendar-day-cell:hover {
+    transform: scale(1.2);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.calendar-day-cell.no-mood {
+    background-color: var(--bg-secondary);
+    opacity: 0.3;
+}
+
+.calendar-day-cell.today {
+    border: 2px solid var(--accent-pink);
+    box-shadow: 0 0 0 3px rgba(255, 182, 193, 0.3);
+}
+
+.calendar-legend {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.legend-color {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+}
+
+/* 底部导航栏 */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--navbar-bg);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 -2px 15px var(--card-shadow);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 0;
+    z-index: 100;
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    color: var(--text-secondary);
+    padding: 8px 15px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    min-width: 60px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.nav-item svg {
+    fill: currentColor;
+    transition: all 0.3s ease;
+}
+
+.nav-item span {
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.nav-item:hover {
+    color: var(--accent-pink);
+    background-color: rgba(255, 182, 193, 0.1);
+    transform: translateY(-3px);
+}
+
+.nav-item.active {
+    color: var(--accent-pink);
+    background-color: rgba(255, 182, 193, 0.15);
+}
+
+/* 调整主内容区域，为底部导航留出空间 */
+.main-content {
+    padding: 60px 40px 100px 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+    min-height: calc(100vh - 180px);
+}
+
 /* 响应式设计 */
 @media (max-width: 768px) {
     .navbar {
         padding: 20px 30px;
     }
     
+    .logo-container {
+        gap: 10px;
+    }
+    
     .logo {
         font-size: 28px;
     }
     
+    .subtitle {
+        font-size: 12px;
+    }
+    
     .main-content {
-        padding: 40px 20px;
+        padding: 40px 20px 90px 20px;
     }
     
     .cards-container {
@@ -192,6 +398,24 @@
         width: 60px;
         height: 60px;
     }
+    
+    .bottom-nav {
+        padding: 8px 0;
+    }
+    
+    .nav-item {
+        padding: 6px 10px;
+        min-width: 50px;
+    }
+    
+    .nav-item svg {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .nav-item span {
+        font-size: 11px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -203,13 +427,18 @@
         font-size: 24px;
     }
     
+    .subtitle {
+        display: none;
+    }
+    
+    .mood-btn,
     .theme-btn {
         width: 42px;
         height: 42px;
     }
     
     .main-content {
-        padding: 30px 15px;
+        padding: 30px 15px 85px 15px;
     }
     
     .card-title {
@@ -218,5 +447,19 @@
     
     .card-desc {
         font-size: 14px;
+    }
+    
+    .nav-item {
+        padding: 5px 8px;
+        min-width: 45px;
+    }
+    
+    .nav-item svg {
+        width: 18px;
+        height: 18px;
+    }
+    
+    .nav-item span {
+        font-size: 10px;
     }
 }

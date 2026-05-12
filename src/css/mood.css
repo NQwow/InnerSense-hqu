@@ -1,0 +1,662 @@
+/* 心情记录页面样式 */
+
+.mood-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* 顶部导航栏样式 */
+.navbar {
+    display: flex;
+    align-items: center;
+    padding: 20px 40px;
+    background-color: var(--navbar-bg);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 10px var(--card-shadow);
+}
+
+.back-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: none;
+    border: 2px solid var(--accent-pink);
+    border-radius: 25px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    color: var(--text-primary);
+    transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+    background-color: var(--accent-pink);
+    color: white;
+    transform: translateX(-3px);
+}
+
+.back-btn svg {
+    fill: currentColor;
+}
+
+.page-title {
+    flex: 1;
+    text-align: center;
+    font-size: 26px;
+    color: var(--accent-pink);
+    margin-right: 120px;
+    font-weight: 600;
+    line-height: 1.2;
+    height: 31px;
+}
+
+.page-title svg {
+    fill: var(--accent-pink);
+}
+
+.section-header {
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.section-title {
+    font-size: 1.8rem;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.section-title svg {
+    fill: var(--accent-pink);
+}
+
+.section-subtitle {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    margin: 0;
+    opacity: 0.8;
+}
+
+/* 日历部分 */
+.calendar-section {
+    margin-bottom: 3rem;
+}
+
+.calendar-wrapper {
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: var(--shadow);
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.current-month {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.nav-btn {
+    background: var(--bg-secondary);
+    border: none;
+    border-radius: 8px;
+    padding: 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: var(--text-primary);
+}
+
+.nav-btn:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: scale(1.1);
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.calendar-day-header {
+    text-align: center;
+    font-weight: 600;
+    color: var(--text-secondary);
+    padding: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.calendar-day {
+    aspect-ratio: 1;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    position: relative;
+    background: var(--bg-secondary);
+}
+
+.calendar-day.has-mood {
+    color: #fff !important;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.calendar-day.has-mood:hover {
+    transform: scale(1.15);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.calendar-day:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.calendar-day.has-mood::after {
+    content: '';
+    position: absolute;
+    bottom: 4px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+}
+
+.calendar-day.today {
+    border: 2px solid var(--primary-color);
+    font-weight: 600;
+}
+
+.calendar-day.editing {
+    border: 3px solid #FFD700 !important;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.6) !important;
+    animation: pulse 1.5s ease-in-out infinite;
+    background-color: rgba(255, 215, 0, 0.1) !important;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+    }
+    50% {
+        box-shadow: 0 0 25px rgba(255, 215, 0, 0.9);
+    }
+}
+
+.calendar-day.other-month {
+    opacity: 0.3;
+}
+
+.calendar-legend {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.legend-color {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+}
+
+/* 表单部分 */
+.form-section {
+    margin-bottom: 3rem;
+}
+
+.mood-form {
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: var(--shadow);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.form-input,
+.form-textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.form-textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.color-picker {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.color-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    padding: 0.75rem;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.color-option:hover {
+    background: var(--bg-secondary);
+    transform: translateY(-2px);
+}
+
+.color-option.selected {
+    border-color: var(--primary-color);
+    background: var(--bg-secondary);
+}
+
+.color-circle {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.color-option span {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.btn {
+    padding: 0.75rem 2rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-submit {
+    background: linear-gradient(135deg, #FFB6C1 0%, #FF9EB5 100%);
+    color: white;
+    box-shadow: 0 4px 12px rgba(255, 182, 193, 0.4);
+    border: 2px solid transparent;
+}
+
+.btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(255, 182, 193, 0.6);
+    border-color: white;
+}
+
+.btn-cancel {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border: 2px solid var(--border-color);
+}
+
+.btn-cancel:hover {
+    background: var(--border-color);
+    border-color: var(--text-secondary);
+}
+
+.btn-edit {
+    background: linear-gradient(135deg, #FFB6C1 0%, #FF9EB5 100%);
+    color: white;
+    box-shadow: 0 4px 12px rgba(255, 182, 193, 0.4);
+}
+
+.btn-delete {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ff5252 100%);
+    color: white;
+    box-shadow: 0 4px 12px rgba(255, 107, 107, 0.4);
+}
+
+/* 列表部分 */
+.list-section {
+    margin-bottom: 3rem;
+}
+
+.mood-list {
+    display: grid;
+    gap: 1rem;
+}
+
+.mood-item {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.mood-item:hover {
+    transform: translateX(8px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.mood-color-indicator {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    flex-shrink: 0;
+}
+
+.mood-info {
+    flex: 1;
+}
+
+.mood-info h3 {
+    margin: 0 0 0.25rem 0;
+    color: var(--text-primary);
+    font-size: 1.1rem;
+}
+
+.mood-info p {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.mood-date {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    flex-shrink: 0;
+}
+
+/* 弹窗 */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    animation: fadeIn 0.3s ease;
+}
+
+.modal.show {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal-content {
+    background: var(--bg-secondary);
+    border-radius: 16px;
+    padding: 2rem;
+    max-width: 500px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+    animation: slideUp 0.3s ease;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    border: 2px solid var(--border-color);
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.close-btn {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    font-size: 2rem;
+    cursor: pointer;
+    color: var(--text-secondary);
+    transition: color 0.3s ease;
+}
+
+.close-btn:hover {
+    color: var(--text-primary);
+}
+
+.modal-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.modal-color-indicator {
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    margin: 0 auto 1rem;
+}
+
+.modal-header h2 {
+    margin: 0 0 0.5rem 0;
+    color: var(--text-primary);
+}
+
+.modal-date {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.modal-body {
+    color: var(--text-primary);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+/* 深色模式适配 */
+body.dark-mode .calendar-day {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+body.dark-mode .nav-btn {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .color-option:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+body.dark-mode .modal-content {
+    background: var(--bg-secondary);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .mood-container {
+        padding: 1rem;
+    }
+
+    .calendar-wrapper {
+        padding: 1rem;
+    }
+
+    .calendar-grid {
+        gap: 0.25rem;
+    }
+
+    .calendar-day {
+        font-size: 0.8rem;
+    }
+
+    .color-picker {
+        gap: 0.5rem;
+    }
+
+    .color-circle {
+        width: 40px;
+        height: 40px;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 100%;
+    }
+
+    .modal-actions {
+        flex-direction: column;
+    }
+}
+
+/* 底部导航栏 */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--navbar-bg);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 -2px 15px var(--card-shadow);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 0;
+    z-index: 100;
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    color: var(--text-secondary);
+    padding: 8px 15px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    min-width: 60px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.nav-item svg {
+    fill: currentColor;
+    transition: all 0.3s ease;
+}
+
+.nav-item span {
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.nav-item:hover {
+    color: var(--accent-pink);
+    background-color: rgba(255, 182, 193, 0.1);
+    transform: translateY(-3px);
+}
+
+.nav-item.active {
+    color: var(--accent-pink);
+    background-color: rgba(255, 182, 193, 0.15);
+}
+
+@media (max-width: 768px) {
+    .bottom-nav {
+        padding: 8px 0;
+    }
+    
+    .nav-item {
+        padding: 6px 10px;
+        min-width: 50px;
+    }
+    
+    .nav-item svg {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .nav-item span {
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-item {
+        padding: 5px 8px;
+        min-width: 45px;
+    }
+    
+    .nav-item svg {
+        width: 18px;
+        height: 18px;
+    }
+    
+    .nav-item span {
+        font-size: 10px;
+    }
+}

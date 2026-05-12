@@ -39,6 +39,8 @@
     color: var(--accent-pink);
     margin-right: 120px;
     font-weight: 600;
+    line-height: 1.2;
+    height: 31px;
 }
 
 .note-container {
@@ -49,6 +51,89 @@
     padding: 40px 20px;
 }
 
+/* 信封样式 */
+.envelope-wrapper {
+    perspective: 1000px;
+    width: 100%;
+    max-width: 500px;
+}
+
+.envelope {
+    position: relative;
+    width: 100%;
+    height: 350px;
+    background: linear-gradient(135deg, #FFB6C1 0%, #FFC0CB 100%);
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(255, 182, 193, 0.5);
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.5s ease;
+}
+
+.envelope:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 50px rgba(255, 182, 193, 0.7);
+}
+
+.envelope-flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+    background: linear-gradient(135deg, #FF6B9D 0%, #FF8EAE 100%);
+    clip-path: polygon(0 0, 50% 100%, 100% 0);
+    z-index: 2;
+}
+
+.envelope-body {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60%;
+    background: linear-gradient(135deg, #FFB6C1 0%, #FFC0CB 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+.envelope-date {
+    font-size: 18px;
+    color: white;
+    font-weight: 600;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.open-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border: none;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+}
+
+.open-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.open-btn svg {
+    fill: #FF6B9D;
+    width: 50px;
+    height: 50px;
+}
+
+/* 便签卡片 */
 .note-card {
     background: linear-gradient(to bottom right, #FFF9E6 0%, #FFF5E6 100%);
     border-radius: 8px;
@@ -65,6 +150,22 @@
     flex-direction: column;
     justify-content: space-between;
     border: 1px solid #FFE4B5;
+    animation: cardAppear 0.5s ease;
+}
+
+@keyframes cardAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.8) rotateY(90deg);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) rotateY(0);
+    }
+}
+
+.note-card.hidden {
+    display: none;
 }
 
 [data-theme="dark"] .note-card {
@@ -128,6 +229,34 @@
     opacity: 0.5;
 }
 
+.close-note-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 20px;
+    padding: 12px 30px;
+    background: linear-gradient(135deg, #87CEEB 0%, #98D8E8 100%);
+    border: none;
+    border-radius: 25px;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(135, 206, 235, 0.4);
+    transition: all 0.3s ease;
+    align-self: center;
+}
+
+.close-note-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(135, 206, 235, 0.6);
+}
+
+.close-note-btn svg {
+    fill: white;
+}
+
 @media (max-width: 768px) {
     .navbar {
         padding: 15px 20px;
@@ -136,6 +265,16 @@
     .page-title {
         font-size: 22px;
         margin-right: 100px;
+    }
+    
+    .envelope {
+        height: 300px;
+    }
+    
+    .open-btn {
+        width: 80px;
+        height: 80px;
+        font-size: 12px;
     }
     
     .note-card {
@@ -150,6 +289,16 @@
 }
 
 @media (max-width: 480px) {
+    .envelope {
+        height: 250px;
+    }
+    
+    .open-btn {
+        width: 70px;
+        height: 70px;
+        font-size: 11px;
+    }
+    
     .note-card {
         padding: 35px 25px;
     }
@@ -160,5 +309,98 @@
     
     .note-date {
         font-size: 14px;
+    }
+}
+
+/* 底部导航栏 */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--navbar-bg);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 -2px 15px var(--card-shadow);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 0;
+    z-index: 100;
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    color: var(--text-secondary);
+    padding: 8px 15px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    min-width: 60px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.nav-item svg {
+    fill: currentColor;
+    transition: all 0.3s ease;
+}
+
+.nav-item span {
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.nav-item:hover {
+    color: var(--accent-pink);
+    background-color: rgba(255, 182, 193, 0.1);
+    transform: translateY(-3px);
+}
+
+.nav-item.active {
+    color: var(--accent-pink);
+    background-color: rgba(255, 182, 193, 0.15);
+}
+
+/* 调整主内容区域，为底部导航留出空间 */
+.note-container {
+    min-height: calc(100vh - 160px);
+    padding-bottom: 80px;
+}
+
+@media (max-width: 768px) {
+    .bottom-nav {
+        padding: 8px 0;
+    }
+    
+    .nav-item {
+        padding: 6px 10px;
+        min-width: 50px;
+    }
+    
+    .nav-item svg {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .nav-item span {
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-item {
+        padding: 5px 8px;
+        min-width: 45px;
+    }
+    
+    .nav-item svg {
+        width: 18px;
+        height: 18px;
+    }
+    
+    .nav-item span {
+        font-size: 10px;
     }
 }

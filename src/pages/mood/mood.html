@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的心情记录 - 知心</title>
+    <link rel="stylesheet" href="../../css/theme.css">
+    <link rel="stylesheet" href="../../css/mood.css">
+</head>
+<body>
+    <div id="app">
+        <!-- 顶部导航栏 -->
+        <header class="navbar">
+            <button class="back-btn" onclick="goBack()">
+                <svg viewBox="0 0 24 24" width="24" height="24">
+                    <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+                </svg>
+                返回首页
+            </button>
+            <h1 class="page-title">心情记录</h1>
+        </header>
+
+        <!-- 主内容区域 -->
+        <main class="mood-container">
+            <!-- 心情日历 -->
+            <section class="calendar-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <svg viewBox="0 0 24 24" width="28" height="28">
+                            <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/>
+                        </svg>
+                        心情日历
+                    </h2>
+                </div>
+                <div class="calendar-wrapper">
+                    <div class="calendar-header">
+                        <button class="nav-btn" onclick="changeMonth(-1)">
+                            <svg viewBox="0 0 24 24" width="20" height="20">
+                                <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+                            </svg>
+                        </button>
+                        <span class="current-month" id="currentMonth"></span>
+                        <button class="nav-btn" onclick="changeMonth(1)">
+                            <svg viewBox="0 0 24 24" width="20" height="20">
+                                <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="calendar-grid" id="calendarGrid"></div>
+                    <div class="calendar-legend">
+                        <span class="legend-item">
+                            <span class="legend-color" style="background: #FFB6C1;"></span>
+                            <span>开心</span>
+                        </span>
+                        <span class="legend-item">
+                            <span class="legend-color" style="background: #87CEEB;"></span>
+                            <span>平静</span>
+                        </span>
+                        <span class="legend-item">
+                            <span class="legend-color" style="background: #FFD700;"></span>
+                            <span>兴奋</span>
+                        </span>
+                        <span class="legend-item">
+                            <span class="legend-color" style="background: #DDA0DD;"></span>
+                            <span>焦虑</span>
+                        </span>
+                        <span class="legend-item">
+                            <span class="legend-color" style="background: #98FB98;"></span>
+                            <span>放松</span>
+                        </span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 添加/编辑心情 -->
+            <section class="form-section">
+                <div class="section-header">
+                    <h2 class="section-title" id="formTitle">
+                        <svg viewBox="0 0 24 24" width="28" height="28">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                        记录今天的心情
+                    </h2>
+                    <p class="section-subtitle">用颜色表达你的情绪</p>
+                </div>
+
+                <div class="mood-form">
+                    <div class="form-group">
+                        <label class="form-label">选择日期</label>
+                        <input type="date" id="moodDate" class="form-input" max="">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">选择心情颜色</label>
+                        <div class="color-picker">
+                            <div class="color-option" data-color="#FFB6C1" data-mood="开心" onclick="selectColor(this)">
+                                <div class="color-circle" style="background: #FFB6C1;"></div>
+                                <span>开心</span>
+                            </div>
+                            <div class="color-option" data-color="#87CEEB" data-mood="平静" onclick="selectColor(this)">
+                                <div class="color-circle" style="background: #87CEEB;"></div>
+                                <span>平静</span>
+                            </div>
+                            <div class="color-option" data-color="#FFD700" data-mood="兴奋" onclick="selectColor(this)">
+                                <div class="color-circle" style="background: #FFD700;"></div>
+                                <span>兴奋</span>
+                            </div>
+                            <div class="color-option" data-color="#DDA0DD" data-mood="焦虑" onclick="selectColor(this)">
+                                <div class="color-circle" style="background: #DDA0DD;"></div>
+                                <span>焦虑</span>
+                            </div>
+                            <div class="color-option" data-color="#98FB98" data-mood="放松" onclick="selectColor(this)">
+                                <div class="color-circle" style="background: #98FB98;"></div>
+                                <span>放松</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">心情描述（可选）</label>
+                        <textarea id="moodDescription" class="form-textarea" placeholder="今天发生了什么特别的事情吗？"></textarea>
+                    </div>
+
+                    <div class="form-actions">
+                        <button class="btn btn-submit" onclick="saveMood()">保存记录</button>
+                        <button class="btn btn-cancel" onclick="cancelEdit()" id="cancelBtn" style="display: none;">取消编辑</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 心情记录列表 -->
+            <section class="list-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <svg viewBox="0 0 24 24" width="28" height="28">
+                            <path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/>
+                        </svg>
+                        心情记录
+                    </h2>
+                    <p class="section-subtitle">查看你的情绪轨迹</p>
+                </div>
+
+                <div class="mood-list" id="moodList"></div>
+            </section>
+        </main>
+
+        <!-- 详情弹窗 -->
+        <div id="detailModal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn" onclick="closeModal()">&times;</span>
+                <div class="modal-header">
+                    <div class="modal-color-indicator" id="modalColor"></div>
+                    <h2 id="modalTitle"></h2>
+                    <p class="modal-date" id="modalDate"></p>
+                </div>
+                <div class="modal-body" id="modalBody"></div>
+                <div class="modal-actions">
+                    <button class="btn btn-edit" onclick="editCurrentMood()">编辑</button>
+                    <button class="btn btn-delete" onclick="deleteCurrentMood()">删除</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 底部导航栏 -->
+        <nav class="bottom-nav">
+            <div class="nav-item" onclick="navigateTo('home')">
+                <svg viewBox="0 0 24 24" width="24" height="24">
+                    <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                </svg>
+                <span>首页</span>
+            </div>
+            <div class="nav-item" onclick="navigateTo('everyday')">
+                <svg viewBox="0 0 24 24" width="24" height="24">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                </svg>
+                <span>一句</span>
+            </div>
+            <div class="nav-item" onclick="navigateTo('quiz')">
+                <svg viewBox="0 0 24 24" width="24" height="24">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                </svg>
+                <span>测试</span>
+            </div>
+            <div class="nav-item" onclick="navigateTo('praise')">
+                <svg viewBox="0 0 24 24" width="24" height="24">
+                    <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+                </svg>
+                <span>夸夸</span>
+            </div>
+            <div class="nav-item" onclick="navigateTo('toolbox')">
+                <svg viewBox="0 0 24 24" width="24" height="24">
+                    <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/>
+                </svg>
+                <span>工具</span>
+            </div>
+            <div class="nav-item active" onclick="navigateTo('mood')">
+                <svg viewBox="0 0 24 24" width="24" height="24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-5-9h10v2H7z"/>
+                </svg>
+                <span>心情</span>
+            </div>
+        </nav>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
+    <script src="../../js/theme.js"></script>
+    <script src="../../js/pathUtils.js"></script>
+    <script src="../../js/clickEffect.js"></script>
+    <script src="../../js/mood.js"></script>
+</body>
+</html>

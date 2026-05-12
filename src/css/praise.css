@@ -39,6 +39,8 @@
     color: var(--accent-pink);
     margin-right: 120px;
     font-weight: 600;
+    line-height: 1.2;
+    height: 31px;
 }
 
 .praise-container {
@@ -211,5 +213,98 @@
     
     .praise-content {
         font-size: 20px;
+    }
+}
+
+/* 底部导航栏 */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--navbar-bg);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 -2px 15px var(--card-shadow);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 0;
+    z-index: 100;
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    color: var(--text-secondary);
+    padding: 8px 15px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    min-width: 60px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.nav-item svg {
+    fill: currentColor;
+    transition: all 0.3s ease;
+}
+
+.nav-item span {
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.nav-item:hover {
+    color: var(--accent-pink);
+    background-color: rgba(255, 182, 193, 0.1);
+    transform: translateY(-3px);
+}
+
+.nav-item.active {
+    color: var(--accent-pink);
+    background-color: rgba(255, 182, 193, 0.15);
+}
+
+/* 调整主内容区域，为底部导航留出空间 */
+.praise-container {
+    min-height: calc(100vh - 160px);
+    padding-bottom: 80px;
+}
+
+@media (max-width: 768px) {
+    .bottom-nav {
+        padding: 8px 0;
+    }
+    
+    .nav-item {
+        padding: 6px 10px;
+        min-width: 50px;
+    }
+    
+    .nav-item svg {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .nav-item span {
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-item {
+        padding: 5px 8px;
+        min-width: 45px;
+    }
+    
+    .nav-item svg {
+        width: 18px;
+        height: 18px;
+    }
+    
+    .nav-item span {
+        font-size: 10px;
     }
 }

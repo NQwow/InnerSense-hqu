@@ -10,6 +10,7 @@
     --accent-yellow: #FFE4B5;
     --card-shadow: rgba(255, 182, 193, 0.3);
     --navbar-bg: rgba(255, 255, 255, 0.95);
+    --border-color: #E0E0E0;
 }
 
 /* 深色主题 - 温暖风格 */
@@ -24,6 +25,7 @@
     --accent-yellow: #FFD9A0;
     --card-shadow: rgba(0, 0, 0, 0.4);
     --navbar-bg: rgba(45, 36, 56, 0.95);
+    --border-color: #5A4D6A;
 }
 
 * {
@@ -40,6 +42,27 @@ body {
     min-height: 100vh;
     position: relative;
     overflow-x: hidden;
+}
+
+/* 点击特效样式 */
+.click-effect {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    font-size: 24px;
+    animation: clickEffectAnim 1s ease-out forwards;
+    transform-origin: center center;
+}
+
+@keyframes clickEffectAnim {
+    0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(var(--offset-x), var(--offset-y)) scale(0);
+        opacity: 0;
+    }
 }
 
 /* 深色模式装饰点 */

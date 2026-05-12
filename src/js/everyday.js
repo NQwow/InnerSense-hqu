@@ -42,13 +42,47 @@ function showDate() {
     document.getElementById('currentDate').textContent = dateStr;
 }
 
-// 返回首页
-function goBack() {
-    // 使用绝对路径，从根目录开始
-    const path = window.location.pathname;
-    // 获取根目录路径
-    const rootPath = path.substring(0, path.indexOf('/src/'));
-    window.location.href = rootPath + '/index.html';
+// 显示信封日期
+function showEnvelopeDate() {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    const dateStr = `${year}年${month}月${day}日`;
+    
+    document.getElementById('envelopeDate').textContent = dateStr;
+}
+
+// 打开信封
+function openEnvelope() {
+    const envelopeWrapper = document.getElementById('envelopeWrapper');
+    const noteCard = document.getElementById('noteCard');
+    
+    // 隐藏信封，显示卡片
+    envelopeWrapper.style.display = 'none';
+    noteCard.classList.remove('hidden');
+    
+    // 显示内容
+    showDate();
+    document.getElementById('quoteContent').textContent = getDailyQuote();
+    
+    // 保存状态到localStorage
+    localStorage.setItem('everydayOpened', 'true');
+    localStorage.setItem('everydayDate', new Date().toDateString());
+}
+
+// 关闭卡片，回到信封
+function closeNote() {
+    const envelopeWrapper = document.getElementById('envelopeWrapper');
+    const noteCard = document.getElementById('noteCard');
+    
+    // 显示信封，隐藏卡片
+    envelopeWrapper.style.display = 'block';
+    noteCard.classList.add('hidden');
+    
+    // 清除状态
+    localStorage.removeItem('everydayOpened');
+    localStorage.removeItem('everydayDate');
 }
 
 // 从父页面继承主题设置
@@ -57,9 +91,27 @@ function inheritTheme() {
     document.documentElement.setAttribute('data-theme', parentTheme);
 }
 
+// 检查是否已经打开过今天的卡片
+function checkTodayStatus() {
+    const opened = localStorage.getItem('everydayOpened');
+    const savedDate = localStorage.getItem('everydayDate');
+    const today = new Date().toDateString();
+    
+    // 如果今天已经打开过，直接显示卡片
+    if (opened === 'true' && savedDate === today) {
+        const envelopeWrapper = document.getElementById('envelopeWrapper');
+        const noteCard = document.getElementById('noteCard');
+        
+        envelopeWrapper.style.display = 'none';
+        noteCard.classList.remove('hidden');
+        showDate();
+        document.getElementById('quoteContent').textContent = getDailyQuote();
+    }
+}
+
 // 页面加载时执行
 document.addEventListener('DOMContentLoaded', function() {
     inheritTheme();
-    showDate();
-    document.getElementById('quoteContent').textContent = getDailyQuote();
+    showEnvelopeDate();
+    checkTodayStatus();
 });
