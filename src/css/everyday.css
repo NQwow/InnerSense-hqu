@@ -312,6 +312,12 @@
     }
 }
 
+/* 调整主内容区域，为底部导航留出空间 */
+.note-container {
+    min-height: calc(100vh - 160px);
+    padding-bottom: 80px;
+}
+
 /* 底部导航栏 */
 .bottom-nav {
     position: fixed;
@@ -361,12 +367,6 @@
 .nav-item.active {
     color: var(--accent-pink);
     background-color: rgba(255, 182, 193, 0.15);
-}
-
-/* 调整主内容区域，为底部导航留出空间 */
-.note-container {
-    min-height: calc(100vh - 160px);
-    padding-bottom: 80px;
 }
 
 @media (max-width: 768px) {

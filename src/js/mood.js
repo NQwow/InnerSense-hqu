@@ -5,6 +5,7 @@ let selectedColor = null;
 let selectedMoodName = null;
 let currentDate = new Date();
 let editingMoodId = null;
+let listCurrentDate = new Date(); // 列表显示的当前月份
 
 // 初始化
 document.addEventListener('DOMContentLoaded', function() {
@@ -239,16 +240,36 @@ function loadMoodList() {
     const moods = getMoods();
     const listContainer = document.getElementById('moodList');
     
+    // 更新列表月份显示
+    updateListMonthDisplay();
+    
     if (moods.length === 0) {
         listContainer.innerHTML = '<p style="text-align: center; color: var(--text-secondary); padding: 2rem;">暂无心情记录</p>';
         return;
     }
     
+    // 获取当前显示的年月
+    const listYear = listCurrentDate.getFullYear();
+    const listMonth = listCurrentDate.getMonth();
+    
+    // 过滤出当前月份的记录
+    const filteredMoods = moods.filter(mood => {
+        const moodDate = new Date(mood.date);
+        return moodDate.getFullYear() === listYear && moodDate.getMonth() === listMonth;
+    });
+    
+    if (filteredMoods.length === 0) {
+        listContainer.innerHTML = '<p style="text-align: center; color: var(--text-secondary); padding: 2rem;">该月份暂无心情记录</p>';
+        return;
+    }
+    
     // 按日期倒序排列
-    moods.sort((a, b) => new Date(b.date) - new Date(a.date));
+    filteredMoods.sort((a, b) => new Date(b.date) - new Date(a.date));
     
     listContainer.innerHTML = '';
-    moods.forEach(mood => {
+    
+    // 渲染该月份的所有记录
+    filteredMoods.forEach(mood => {
         const item = document.createElement('div');
         item.className = 'mood-item';
         item.onclick = () => showMoodDetail(mood.id);
@@ -264,6 +285,21 @@ function loadMoodList() {
         
         listContainer.appendChild(item);
     });
+}
+
+// 更新列表月份显示
+function updateListMonthDisplay() {
+    const year = listCurrentDate.getFullYear();
+    const month = listCurrentDate.getMonth();
+    const monthNames = ['一月', '二月', '三月', '四月', '五月', '六月', 
+                       '七月', '八月', '九月', '十月', '十一月', '十二月'];
+    document.getElementById('currentListMonth').textContent = `${year}年 ${monthNames[month]}`;
+}
+
+// 切换列表月份
+function changeListMonth(delta) {
+    listCurrentDate.setMonth(listCurrentDate.getMonth() + delta);
+    loadMoodList();
 }
 
 // 显示心情详情
@@ -412,5 +448,133 @@ window.onclick = function(event) {
     const modal = document.getElementById('detailModal');
     if (event.target === modal) {
         closeModal();
+    }
+}
+
+// 导出数据
+function exportData() {
+    const moods = getMoods();
+    
+    if (moods.length === 0) {
+        alert('暂无数据可导出');
+        return;
+    }
+    
+    // 创建导出数据对象
+    const exportData = {
+        version: '1.0',
+        exportDate: new Date().toISOString(),
+        totalRecords: moods.length,
+        records: moods
+    };
+    
+    // 转换为JSON字符串
+    const dataStr = JSON.stringify(exportData, null, 2);
+    
+    // 创建Blob对象
+    const blob = new Blob([dataStr], { type: 'application/json' });
+    
+    // 创建下载链接
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `心情记录_${new Date().toISOString().split('T')[0]}.json`;
+    
+    // 触发下载
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    
+    alert(`成功导出 ${moods.length} 条心情记录`);
+}
+
+// 导入数据
+function importData(event) {
+    const file = event.target.files[0];
+    
+    if (!file) {
+        return;
+    }
+    
+    // 检查文件类型
+    if (!file.name.endsWith('.json')) {
+        alert('请选择JSON格式的文件');
+        return;
+    }
+    
+    const reader = new FileReader();
+    
+    reader.onload = function(e) {
+        try {
+            const importData = JSON.parse(e.target.result);
+            
+            // 验证数据格式
+            if (!importData.records || !Array.isArray(importData.records)) {
+                throw new Error('无效的数据格式');
+            }
+            
+            const importedMoods = importData.records;
+            const existingMoods = getMoods();
+            
+            // 合并数据（保留现有数据，不覆盖重复日期）
+            let addedCount = 0;
+            let skippedCount = 0;
+            
+            importedMoods.forEach(importedMood => {
+                // 检查是否已存在相同日期的记录
+                const existingIndex = existingMoods.findIndex(m => m.date === importedMood.date);
+                
+                if (existingIndex === -1) {
+                    // 不存在则添加
+                    existingMoods.push(importedMood);
+                    addedCount++;
+                } else {
+                    // 已存在则跳过
+                    skippedCount++;
+                }
+            });
+            
+            // 保存合并后的数据
+            saveMoods(existingMoods);
+            
+            // 重新渲染
+            renderCalendar();
+            loadMoodList();
+            
+            // 显示结果
+            let message = `导入完成！\n新增：${addedCount} 条\n跳过（日期重复）：${skippedCount} 条`;
+            if (skippedCount > 0) {
+                message += '\n\n提示：重复日期的记录已被保留，未覆盖。';
+            }
+            alert(message);
+            
+        } catch (error) {
+            alert('导入失败：' + error.message);
+            console.error('导入错误:', error);
+        }
+        
+        // 清空文件输入，允许重复导入同一文件
+        event.target.value = '';
+    };
+    
+    reader.onerror = function() {
+        alert('读取文件失败');
+    };
+    
+    reader.readAsText(file);
+}
+
+// 切换帮助面板显示/隐藏
+function toggleHelp() {
+    const helpPanel = document.getElementById('helpPanel');
+    if (helpPanel.style.display === 'none') {
+        helpPanel.style.display = 'block';
+        // 滚动到帮助面板
+        setTimeout(() => {
+            helpPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 100);
+    } else {
+        helpPanel.style.display = 'none';
     }
 }

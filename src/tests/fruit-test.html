@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>水果人格测试 - 知心</title>
+    <!-- 立即应用主题，防止闪烁 -->
+    <script>
+        (function() {
+            const theme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+    <link rel="stylesheet" href="../../css/theme.css">
+    <style>
+        body {
+            padding: 20px;
+            background-color: var(--bg-primary);
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--bg-secondary);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 4px 15px var(--card-shadow);
+        }
+        
+        h1 {
+            text-align: center;
+            color: var(--accent-pink);
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+        
+        .notice {
+            background: rgba(255, 182, 193, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            font-size: 15px;
+            color: var(--text-secondary);
+            border-left: 4px solid var(--accent-pink);
+        }
+        
+        .question {
+            margin: 20px 0;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .q-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+            font-size: 17px;
+        }
+        
+        .opt {
+            margin: 8px 0;
+            cursor: pointer;
+            color: var(--text-primary);
+            padding: 8px;
+            border-radius: 8px;
+            transition: background-color 0.2s ease;
+        }
+        
+        .opt:hover {
+            background-color: rgba(255, 182, 193, 0.1);
+        }
+        
+        .opt input[type="radio"] {
+            margin-right: 8px;
+            cursor: pointer;
+        }
+        
+        button {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            border: none;
+            background: var(--accent-pink);
+            color: white;
+            font-size: 17px;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 20px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        button:hover {
+            background: #FF9EB5;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 182, 193, 0.4);
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            .q-title {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🍓 水果人格测试</h1>
+        <div class="notice">
+            <strong>测试须知</strong><br>
+            本测试共12道生活化单选题，无对错，凭第一直觉选择，无需过度思考。
+        </div>
+
+        <div id="qList">
+            <div class="question">
+                <div class="q-title">1. 和朋友聚会时，你更习惯？</div>
+                <div class="opt"><label><input type="radio" name="q1" value="5"> A. 主动聊天，带动全场氛围</label></div>
+                <div class="opt"><label><input type="radio" name="q1" value="3"> B. 跟着大家节奏，安静参与</label></div>
+                <div class="opt"><label><input type="radio" name="q1" value="1"> C. 只和熟悉的人小声交谈</label></div>
+            </div>
+            <div class="question">
+                <div class="q-title">2. 遇到烦心事，你通常会？</div>
+                <div class="opt"><label><input type="radio" name="q2" value="5"> A. 很快释怀，不放在心上</label></div>
+                <div class="opt"><label><input type="radio" name="q2" value="3"> B. 默默消化，慢慢调整</label></div>
+                <div class="opt"><label><input type="radio" name="q2" value="1"> C. 纠结很久，容易陷入情绪</label></div>
+            </div>
+            <div class="question">
+                <div class="q-title">3. 对于人际交往，你更看重？</div>
+                <div class="opt"><label><input type="radio" name="q3" value="5"> A. 真诚直接，不喜欢拐弯抹角</label></div>
+                <div class="opt"><label><input type="radio" name="q3" value="3"> B. 温和相处，彼此舒服就好</label></div>
+                <div class="opt"><label><input type="radio" name="q3" value="1"> C. 保持距离，不被过度打扰</label></div>
+            </div>
+            <div class="question">
+                <div class="q-title">4. 做事之前，你会？</div>
+                <div class="opt"><label><input type="radio" name="q4" value="5"> A. 随心去做，不喜欢提前规划</label></div>
+                <div class="opt"><label><input type="radio" name="q4" value="3"> B. 简单规划，灵活调整就好</label></div>
+                <div class="opt"><label><input type="radio" name="q4" value="1"> C. 制定计划，按步骤执行</label></div>
+            </div>
+            <div class="question">
+                <div class="q-title">5. 别人对你提出过分要求，你会？</div>
+                <div class="opt"><label><input type="radio" name="q5" value="5"> A. 直接拒绝，坚守自己底线</label></div>
+                <div class="opt"><label><input type="radio" name="q5" value="3"> B. 委婉推脱，不想得罪人</label></div>
+                <div class="opt"><label><input type="radio" name="q5" value="1"> C. 不好意思拒绝，勉强答应</label></div>
+            </div>
+            <div class="question">
+                <div class="q-title">6. 你更喜欢的生活状态是？</div>
+                <div class="opt"><label><input type="radio" name="q6" value="5"> A. 热闹鲜活，充满新鲜感</label></div>
+                <div class="opt"><label><input type="radio" name="q6" value="3"> B. 平稳舒缓，松弛又自在</label></div>
+                <div class="opt"><label><input type="radio" name="q6" value="1"> C. 安静独处，简单不复杂</label></div>
+            </div>
+            <div class="question">
+                <div class="q-title">7. 面对他人的负面情绪，你会？</div>
+                <div class="opt"><label><input type="radio" name="q7" value="5"> A. 耐心安慰，全力给予陪伴</label></div>
+                <div class="opt"><label><input type="radio" name="q7" value="3"> B. 默默倾听，不随意评判</label></div>
+                <div class="opt"><label><input type="radio" name="q7" value="1"> C. 不知如何回应，保持沉默</label></div>
+            </div>
+            <div class="question">
+                <div class="q-title">8. 当你认定一件事，会？</div>
+                <div class="opt"><label><input type="radio" name="q8" value="5"> A. 坚持到底，绝不轻易放弃</label></div>
+                <div class="opt"><label><input type="radio" name="q8" value="3"> B. 努力尝试，不行就调整</label></div>
+                <div class="opt"><label><input type="radio" name="q8" value="1"> C. 顺其自然，不强求结果</label></div>
+            </div>
+            <div class="question">
+                <div class="q-title">9. 你对自己的要求是？</div>
+                <div class="opt"><label><input type="radio" name="q9" value="5"> A. 做独特的自己，不迎合他人</label></div>
+                <div class="opt"><label><input type="radio" name="q9" value="3"> B. 温和待人，也不委屈自己</label></div>
+                <div class="opt"><label><input type="radio" name="q9" value="1"> C. 踏实安稳，不让别人失望</label></div>
+            </div>
+            <div class="question">
+                <div class="q-title">10. 闲暇时光，你更偏爱？</div>
+                <div class="opt"><label><input type="radio" name="q10" value="5"> A. 外出探索，尝试新鲜事物</label></div>
+                <div class="opt"><label><input type="radio" name="q10" value="3"> B. 做喜欢的事，放松身心</label></div>
+                <div class="opt"><label><input type="radio" name="q10" value="1"> C. 宅家休息，享受独处</label></div>
+            </div>
+            <div class="question">
+                <div class="q-title">11. 与人发生矛盾，你会？</div>
+                <div class="opt"><label><input type="radio" name="q11" value="5"> A. 直面问题，理性解决</label></div>
+                <div class="opt"><label><input type="radio" name="q11" value="3"> B. 冷静沟通，各退一步</label></div>
+                <div class="opt"><label><input type="radio" name="q11" value="1"> C. 选择回避，不想争执</label></div>
+            </div>
+            <div class="question">
+                <div class="q-title">12. 你看待生活的态度是？</div>
+                <div class="opt"><label><input type="radio" name="q12" value="5"> A. 热爱浪漫，注重小美好</label></div>
+                <div class="opt"><label><input type="radio" name="q12" value="3"> B. 通透豁达，知足常乐</label></div>
+                <div class="opt"><label><input type="radio" name="q12" value="1"> C. 沉稳内敛，稳步前行</label></div>
+            </div>
+        </div>
+
+        <button onclick="submitTest()">提交查看结果</button>
+    </div>
+
+    <script>
+        function submitTest(){
+            let total = 0;
+            for(let i=1;i<=12;i++){
+                let v = document.querySelector(`input[name="q${i}"]:checked`);
+                if(!v){
+                    alert("请答完所有题目再提交");
+                    return;
+                }
+                total += Number(v.value);
+            }
+            // 把总分通过地址栏传给结果页
+            window.location.href = "fruit-result.html?score="+total;
+        }
+    </script>
+</body>
+</html>

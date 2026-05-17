@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>我的心情记录 - 知心</title>
+    <!-- 立即应用主题，防止闪烁 -->
+    <script>
+        (function() {
+            const theme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
     <link rel="stylesheet" href="../../css/theme.css">
     <link rel="stylesheet" href="../../css/mood.css">
 </head>
@@ -68,6 +75,14 @@
                             <span class="legend-color" style="background: #98FB98;"></span>
                             <span>放松</span>
                         </span>
+                        <span class="legend-item">
+                            <span class="legend-color" style="background: #6495ED;"></span>
+                            <span>难过</span>
+                        </span>
+                        <span class="legend-item">
+                            <span class="legend-color" style="background: #FF6B6B;"></span>
+                            <span>生气</span>
+                        </span>
                     </div>
                 </div>
             </section>
@@ -113,6 +128,14 @@
                                 <div class="color-circle" style="background: #98FB98;"></div>
                                 <span>放松</span>
                             </div>
+                            <div class="color-option" data-color="#6495ED" data-mood="难过" onclick="selectColor(this)">
+                                <div class="color-circle" style="background: #6495ED;"></div>
+                                <span>难过</span>
+                            </div>
+                            <div class="color-option" data-color="#FF6B6B" data-mood="生气" onclick="selectColor(this)">
+                                <div class="color-circle" style="background: #FF6B6B;"></div>
+                                <span>生气</span>
+                            </div>
                         </div>
                     </div>
 
@@ -138,6 +161,63 @@
                         心情记录
                     </h2>
                     <p class="section-subtitle">查看你的情绪轨迹</p>
+                </div>
+
+                <!-- 数据管理工具栏 -->
+                <div class="data-tools">
+                    <button class="btn btn-export" onclick="exportData()">
+                        <svg viewBox="0 0 24 24" width="18" height="18">
+                            <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+                        </svg>
+                        导出数据
+                    </button>
+                    <button class="btn btn-import" onclick="document.getElementById('importFile').click()">
+                        <svg viewBox="0 0 24 24" width="18" height="18">
+                            <path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"/>
+                        </svg>
+                        导入数据
+                    </button>
+                    <input type="file" id="importFile" accept=".json" style="display: none;" onchange="importData(event)">
+                    <button class="btn btn-help" onclick="toggleHelp()">
+                        <svg viewBox="0 0 24 24" width="18" height="18">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/>
+                        </svg>
+                        使用教程
+                    </button>
+                </div>
+
+                <!-- 使用教程（默认隐藏） -->
+                <div id="helpPanel" class="help-panel" style="display: none;">
+                    <div class="help-content">
+                        <h3>数据备份与恢复指南</h3>
+                        <ul>
+                            <li><strong>导出数据：</strong>将所有心情记录保存为JSON文件，可用于备份或迁移到其他设备。</li>
+                            <li><strong>导入数据：</strong>选择之前导出的JSON文件，恢复心情记录（会合并现有数据）。</li>
+                            <li><strong>注意事项：</strong>
+                                <ul>
+                                    <li>数据存储在浏览器本地，清除缓存会丢失记录。</li>
+                                    <li>建议定期导出备份，防止数据丢失。</li>
+                                    <li>导入时会保留现有记录，不会覆盖重复日期的数据。</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <button class="btn btn-close-help" onclick="toggleHelp()">我知道了</button>
+                    </div>
+                </div>
+
+                <!-- 月份导航 -->
+                <div class="mood-list-header">
+                    <button class="nav-btn" onclick="changeListMonth(-1)">
+                        <svg viewBox="0 0 24 24" width="20" height="20">
+                            <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+                        </svg>
+                    </button>
+                    <span class="current-list-month" id="currentListMonth"></span>
+                    <button class="nav-btn" onclick="changeListMonth(1)">
+                        <svg viewBox="0 0 24 24" width="20" height="20">
+                            <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+                        </svg>
+                    </button>
                 </div>
 
                 <div class="mood-list" id="moodList"></div>

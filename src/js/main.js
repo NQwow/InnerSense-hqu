@@ -134,6 +134,8 @@ function renderMoodCalendar() {
             dayCell.onclick = () => navigateTo('mood');
         } else {
             dayCell.classList.add('no-mood');
+            // 即使是空日期，点击也能跳转到心情页面添加记录
+            dayCell.onclick = () => navigateTo('mood');
         }
         
         // 标记今天

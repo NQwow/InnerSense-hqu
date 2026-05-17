@@ -169,8 +169,32 @@
 }
 
 /* 深色模式适配 - 调整卡片使其更柔和 */
+[data-theme="dark"] .tool-breathing {
+    background: linear-gradient(135deg, #2D2438 0%, #1A1520 100%);
+}
+
+[data-theme="dark"] .tool-meditation {
+    background: linear-gradient(135deg, #2D2438 0%, #1A1520 100%);
+}
+
+[data-theme="dark"] .tool-exercise {
+    background: linear-gradient(135deg, #2D2438 0%, #1A1520 100%);
+}
+
+[data-theme="dark"] .tool-art {
+    background: linear-gradient(135deg, #2D2438 0%, #1A1520 100%);
+}
+
+[data-theme="dark"] .tool-music {
+    background: linear-gradient(135deg, #2D2438 0%, #1A1520 100%);
+}
+
+[data-theme="dark"] .tool-talk {
+    background: linear-gradient(135deg, #2D2438 0%, #1A1520 100%);
+}
+
 [data-theme="dark"] .tool-card {
-    opacity: 0.85;
+    opacity: 0.9;
     box-shadow: 
         0 10px 25px rgba(0, 0, 0, 0.4),
         inset 0 0 0 1px rgba(255, 255, 255, 0.1);
@@ -317,6 +341,11 @@
     }
 }
 
+/* 调整主内容区域，为底部导航留出空间 */
+.toolbox-container {
+    padding-bottom: 100px;
+}
+
 /* 底部导航栏 */
 .bottom-nav {
     position: fixed;
@@ -366,11 +395,6 @@
 .nav-item.active {
     color: var(--accent-pink);
     background-color: rgba(255, 182, 193, 0.15);
-}
-
-/* 调整主内容区域，为底部导航留出空间 */
-.toolbox-container {
-    padding-bottom: 100px;
 }
 
 @media (max-width: 768px) {

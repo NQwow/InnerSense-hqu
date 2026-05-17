@@ -1,3 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>趣味小测试 - 知心</title>
+    <!-- 立即应用主题，防止闪烁 -->
+    <script>
+        (function() {
+            const theme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+    <link rel="stylesheet" href="../../css/theme.css">
+    <link rel="stylesheet" href="../../css/quiz.css">
+</head>
+<body>
+    <div id="app">
+        <!-- 顶部导航栏 -->
+        <header class="navbar">
+            <button class="back-btn" onclick="goBack()">
+                <svg viewBox="0 0 24 24" width="24" height="24">
+                    <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+                </svg>
+                返回首页
+            </button>
+            <h1 class="page-title">趣味小测试</h1>
+        </header>
+
+        <!-- 测试卡片网格 -->
+        <main class="quiz-container">
+            <div id="testsGrid" class="tests-grid">
+                <!-- 水果人格测试 -->
+                <div class="test-card test-fruit" onclick="startTest('fruit')">
+                    <div class="test-icon">
+                        <svg viewBox="0 0 24 24" width="50" height="50">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                    </div>
+                    <h3 class="test-title">水果人格测试</h3>
+                    <p class="test-desc">通过12道生活化问题，探索你的性格特质</p>
+                </div>
+
+                <!-- 心理压力自测 -->
+                <div class="test-card test-stress" onclick="startTest('stress')">
+                    <div class="test-icon">
+                        <svg viewBox="0 0 24 24" width="50" height="50">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                        </svg>
+                    </div>
+                    <h3 class="test-title">心理压力自测</h3>
+                    <p class="test-desc">评估你近期的压力水平，关注心理健康</p>
+                </div>
+
+                <!-- 每日塔罗占卜 -->
+                <div class="test-card test-tarot" onclick="startTest('tarot')">
+                    <div class="test-icon">
+                        <svg viewBox="0 0 24 24" width="50" height="50">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                    </div>
+                    <h3 class="test-title">每日塔罗占卜</h3>
+                    <p class="test-desc">抽取一张塔罗牌，获取今日指引</p>
+                </div>
+            </div>
+            
+            <!-- 测试容器（动态显示） -->
+            <div id="testContainer" style="display: none;">
+                <div id="testContent"></div>
+            </div>
+        </main>
+
         <!-- 底部导航栏 -->
         <nav class="bottom-nav">
             <div class="nav-item" onclick="navigateTo('home')">
@@ -10,25 +82,25 @@
                 <svg viewBox="0 0 24 24" width="24" height="24">
                     <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
                 </svg>
-                <span>每日一句</span>
+                <span>一句</span>
             </div>
             <div class="nav-item active" onclick="navigateTo('quiz')">
                 <svg viewBox="0 0 24 24" width="24" height="24">
                     <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
                 </svg>
-                <span>小测试</span>
+                <span>测试</span>
             </div>
             <div class="nav-item" onclick="navigateTo('praise')">
                 <svg viewBox="0 0 24 24" width="24" height="24">
                     <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
                 </svg>
-                <span>夸夸卡</span>
+                <span>夸夸</span>
             </div>
             <div class="nav-item" onclick="navigateTo('toolbox')">
                 <svg viewBox="0 0 24 24" width="24" height="24">
                     <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/>
                 </svg>
-                <span>工具箱</span>
+                <span>工具</span>
             </div>
             <div class="nav-item" onclick="navigateTo('mood')">
                 <svg viewBox="0 0 24 24" width="24" height="24">
@@ -39,7 +111,6 @@
         </nav>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
     <script src="../../js/theme.js"></script>
     <script src="../../js/pathUtils.js"></script>
     <script src="../../js/clickEffect.js"></script>

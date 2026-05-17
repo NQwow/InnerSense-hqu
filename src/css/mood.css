@@ -51,10 +51,6 @@
     height: 31px;
 }
 
-.page-title svg {
-    fill: var(--accent-pink);
-}
-
 .section-header {
     margin-bottom: 1.5rem;
     text-align: center;
@@ -372,6 +368,19 @@
     gap: 1rem;
 }
 
+.month-header {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--accent-pink);
+    padding: 1rem 0 0.5rem 0;
+    margin-top: 1rem;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.month-header:first-child {
+    margin-top: 0;
+}
+
 .mood-item {
     background: var(--card-bg);
     border-radius: 12px;
@@ -540,6 +549,15 @@ body.dark-mode .modal-content {
         padding: 1rem;
     }
 
+    .navbar {
+        padding: 15px 20px;
+    }
+    
+    .page-title {
+        font-size: 22px;
+        margin-right: 100px;
+    }
+
     .calendar-wrapper {
         padding: 1rem;
     }
@@ -574,89 +592,196 @@ body.dark-mode .modal-content {
     }
 }
 
-/* 底部导航栏 */
-.bottom-nav {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-color: var(--navbar-bg);
-    backdrop-filter: blur(10px);
-    box-shadow: 0 -2px 15px var(--card-shadow);
+/* 数据管理工具栏 */
+.data-tools {
     display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 10px 0;
-    z-index: 100;
+    gap: 12px;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
-.nav-item {
+.btn-export,
+.btn-import,
+.btn-help {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 5px;
-    color: var(--text-secondary);
-    padding: 8px 15px;
-    border-radius: 12px;
-    transition: all 0.3s ease;
-    min-width: 60px;
+    gap: 6px;
+    padding: 10px 18px;
+    border: 2px solid var(--border-color);
+    border-radius: 10px;
+    background: var(--card-bg);
+    color: var(--text-primary);
+    font-size: 14px;
+    font-weight: 600;
     cursor: pointer;
-    user-select: none;
-}
-
-.nav-item svg {
-    fill: currentColor;
     transition: all 0.3s ease;
 }
 
-.nav-item span {
-    font-size: 12px;
-    font-weight: 500;
+.btn-export svg,
+.btn-import svg,
+.btn-help svg {
+    fill: currentColor;
 }
 
-.nav-item:hover {
+.btn-export:hover {
+    background: linear-gradient(135deg, #98D8C8 0%, #B8E6D5 100%);
+    border-color: #98D8C8;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(152, 216, 200, 0.4);
+}
+
+.btn-import:hover {
+    background: linear-gradient(135deg, #87CEEB 0%, #A8D8EA 100%);
+    border-color: #87CEEB;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(135, 206, 235, 0.4);
+}
+
+.btn-help:hover {
+    background: linear-gradient(135deg, #DDA0DD 0%, #E6B8E6 100%);
+    border-color: #DDA0DD;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(221, 160, 221, 0.4);
+}
+
+/* 心情列表头部（月份导航） */
+.mood-list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+}
+
+.current-list-month {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.mood-list-header .nav-btn {
+    background: var(--bg-secondary);
+    border: none;
+    border-radius: 8px;
+    padding: 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: var(--text-primary);
+}
+
+.mood-list-header .nav-btn:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: scale(1.1);
+}
+
+/* 帮助面板 */
+.help-panel {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: var(--shadow);
+    border: 2px solid var(--accent-pink);
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.help-content h3 {
     color: var(--accent-pink);
-    background-color: rgba(255, 182, 193, 0.1);
-    transform: translateY(-3px);
+    margin: 0 0 1rem 0;
+    font-size: 1.2rem;
+    text-align: center;
 }
 
-.nav-item.active {
+.help-content ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem 0;
+}
+
+.help-content li {
+    color: var(--text-primary);
+    line-height: 1.8;
+    margin-bottom: 0.8rem;
+    padding-left: 1.5rem;
+    position: relative;
+}
+
+.help-content li::before {
+    content: '•';
     color: var(--accent-pink);
-    background-color: rgba(255, 182, 193, 0.15);
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+    font-size: 1.2rem;
 }
 
-@media (max-width: 768px) {
-    .bottom-nav {
-        padding: 8px 0;
-    }
-    
-    .nav-item {
-        padding: 6px 10px;
-        min-width: 50px;
-    }
-    
-    .nav-item svg {
-        width: 20px;
-        height: 20px;
-    }
-    
-    .nav-item span {
-        font-size: 11px;
-    }
+.help-content li strong {
+    color: var(--accent-pink);
 }
 
-@media (max-width: 480px) {
-    .nav-item {
-        padding: 5px 8px;
-        min-width: 45px;
-    }
-    
-    .nav-item svg {
-        width: 18px;
-        height: 18px;
-    }
-    
-    .nav-item span {
-        font-size: 10px;
-    }
+.help-content li ul {
+    margin-top: 0.5rem;
+    margin-left: 1rem;
+}
+
+.help-content li ul li {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.help-content li ul li::before {
+    content: '-';
+    font-size: 1rem;
+}
+
+.btn-close-help {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background: var(--accent-pink);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-close-help:hover {
+    background: #FF9EB5;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 182, 193, 0.4);
+}
+
+/* 深色模式适配数据工具栏 */
+[data-theme="dark"] .btn-export,
+[data-theme="dark"] .btn-import,
+[data-theme="dark"] .btn-help {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="dark"] .help-panel {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--accent-pink);
 }
